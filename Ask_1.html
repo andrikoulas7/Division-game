@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Εργαστήριο 11 Άσκηση 1</title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<p id="odigies">
+    <i>Οδηγίες:<br>
+        Προσπάθησε να βρεις τους αριθμούς που είναι διαιρέτες του αριθμού που θα εμφανιστεί!<br>
+        Έχεις 30"<br>
+        Καλή τύχη!
+    </i>
+</p>
+
+<input type="button" value="Εκκίνηση" onclick="fillArray()">
+
+<div id="demo"></div>
+<div id="timer"></div>
+
+<center>
+    <table id="pinakas" border="1" onclick="checkDivision(event);">
+    <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+    </tr>
+    <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+    </tr>
+    <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+    </tr>
+    <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+    </tr>
+    <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+    </tr>
+</table>
+</center>
+
+<script>
+
+    var timeleft = 30;
+    var t;
+    var r;
+    var correct = 0;
+    var all = 0;
+
+
+    function fillArray() {
+        r = Math.ceil(Math.random()*9);
+        document.getElementById("demo").innerHTML = r;
+        var mytable = document.getElementById("pinakas");
+        for (i=0;i<mytable.rows.length;i++){
+            for (j=0;j<mytable.rows[i].cells.length;j++){
+                var r2 = Math.ceil(Math.random()*100);
+                mytable.rows[i].cells[j].innerHTML = r2;
+            }
+        }
+
+        t = window.setInterval("setTimer()",1000);
+
+    }
+
+    function setTimer() {
+        timeleft--;
+        document.getElementById("timer").innerHTML = timeleft;
+        if (timeleft == 0){
+            window.clearInterval(t);
+            alert("Τέλος χρόνου. Ποσοστό επιτυχίας: " + (correct/all)*100 + '%');
+            timeleft = 30;
+        }
+    }
+    
+    function checkDivision(ev) {
+        all++;
+        var y;
+        if (ev.target){
+            y = ev.target;
+        }else {
+            y = ev.srcElement;
+        }
+
+        if ((y.innerHTML % r) == 0){
+            y.style.backgroundColor = 'green';
+            correct++;
+        }else {
+            y.style.backgroundColor = 'red';
+        }
+
+    }
+
+
+</script>
+
+</body>
+</html>
